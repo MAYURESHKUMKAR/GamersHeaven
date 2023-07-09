@@ -1,0 +1,102 @@
+{% extends 'gheaven/admin/base.html' %}
+{% load static %}
+
+{% block styles %} {% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark p-0 up-sec"
+style="backdrop-filter: blur(3rem); background-color: rgba(0, 0, 0, 0.547); border-bottom: 1px solid rgb(0, 136, 255); ">
+    {% include 'gheaven/admin/navbar.html' %}
+</nav>
+
+
+<div class="container-fluid text-white">
+<div class="row">
+    <!-- SideBar -->
+    {% include 'gheaven/admin/sidebar.html' %}
+
+    <!-- Sidebar Windows -->
+
+    <div class="col-11 p-0"
+        style="backdrop-filter: blur(0.5rem); background-color: rgba(104, 103, 103, 0.321);">
+        <div class="row  p-0 m-0 mt-3" style="border-bottom: 1px solid white;">
+            <h3>Dashboard</h3>
+            <div class="col-12 d-flex p-0 text-center">
+                <br />
+                <div class="sec-col m-3">
+                    <h6 class="m-2 mb-0 ">Today's Income</h6>
+                    <h4 class="m-2 "><i class="fa-solid fa-indian-rupee-sign s-icon small"
+                            style="padding-left: 0;"></i>4,500</h4>
+                </div>
+                <div class="sec-col m-3">
+                    <h6 class="m-2 mb-0 ">PC Available</h6>
+                    <h4 class="m-2 "><i class="fa-solid fa-desktop s-icon small" style="padding-left: 0;"></i>15
+                    </h4>
+                </div>
+                <div class="sec-col m-3">
+                    <h6 class="m-2 mb-0 ">Month's Revenue</h6>
+                    <h4 class="m-2 "><i class="fa-solid fa-indian-rupee-sign s-icon small"
+                            style="padding-left: 0;"></i>52,000</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row p-0 m-0 mt-3">
+            <h3>PC Information</h3>
+            <div class="col-12 p-0 tab-col">
+                <table class="table text-white text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col"><b>PC ID</b></th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Time To Logout</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Off</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Occupied</td>
+                            <td>Deadwolf</td>
+                            <td>1h 22m</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Off</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>Occupied</td>
+                            <td>Xenox</td>
+                            <td>2h 03m</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>Occupied</td>
+                            <td>X9tine</td>
+                            <td>1h 45m</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td>Off</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

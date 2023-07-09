@@ -1,0 +1,168 @@
+{% extends 'gheaven/base.html' %}
+{% load static %}
+
+{% block title %} Gamers Heaven {% endblock %}
+
+{% block styles %}<style>
+    .sec-col {
+        backdrop-filter: blur(3em);
+        background-color: rgba(104, 103, 103, 0.321);
+        /* box-shadow: 3px 5px 5px rgba(255, 255, 255, 0.312); */
+        border-radius: 15px;
+        padding: 0;
+    }
+
+    .gm-sc {
+        
+        border-radius: 15px;
+        padding: 0;
+        height: 22rem;  
+        width : 17rem;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .circular-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        background-color: #cccccc3d;
+        border: 1px solid white;
+    }
+
+    .logo-icon {
+        width: auto;
+        height: 2em;
+        border-radius: 30%;
+        margin-left: 1em;
+        box-shadow: 0px 0px 17px rgb(0, 255, 255);
+    }
+</style> {% endblock %}
+
+{% block content %} 
+<header>
+    {% include 'gheaven/navbar.html'%}
+</header>
+
+<div class="container-fluid text-white " >
+    <div class="row">
+
+        <div class="col-3">
+            <div class="row sec-col" style="margin: 12px;">
+                <div class="col-12 ">
+                    <h6 class="m-2 mb-0 d-flex aign-items-center justify-content-center">Welcome back to Gamers
+                        Heaven</h6>
+                    <h1><a href="details.html" class="m-2 d-flex aign-items-center justify-content-center"
+                            id="all-games-link">{{ user.username }}</a>
+                    </h1>
+                </div>
+            </div>
+            <div class="row sec-col" style="margin: 12px;">
+                <div class="col-6 ">
+                    <h6 class="m-2 mb-0 d-flex aign-items-center justify-content-center">Time Remaining</h6>
+                    <h4 class="m-2 d-flex aign-items-center justify-content-center">{{ user.remaining_time }}</h4>
+                </div>
+                <div class="col-6 p-0" style="border-left: 1px solid rgba(255, 255, 255, 0.296);">
+                    <div class="row m-0" style="height: 100%;">
+                        <div class="col-4 p-0 d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-wallet medium" style="font-size: 2rem"></i>
+                        </div>
+                        <div class="col-8 p-0">
+                            <div class="row m-0">
+                                <div class="col-12 mt-3">
+                                    <i class="fa-solid fa-indian-rupee-sign m-2"> {{ user.account_balance }}</i>
+                                </div>
+                            </div>
+                            <div class="row m-0">
+                                <div class="col-12 ">
+                                    <i class="fa fa-coins m-2">&nbsp {{ user.total_coins }}</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row sec-col" style="margin: 1.125rem 0.75rem 0 0.75rem; height: 35rem;">
+                <div class="col-12 p-0">
+                    <h5 class="m-3 mb-0 d-flex aign-items-start ">You can redeem these prices !</h5>
+                    <p class="m-3 mb-4 d-flex aign-items-start " style="font-size: 0.8rem;">Current Balance is:
+                        &nbsp;<i class="fas fa-coins"> {{ user.total_coins }}</i></p>
+                    <div class="row m-0">
+                        <div class="col-4 p-0 d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-hourglass-start fa-lg circular-icon"></i>
+                        </div>
+                        <div class="col-8">
+                            <p class="m-3 mb-4 d-flex aign-items-start " style="font-size: 0.8rem;"><a href="{% url 'shop' user.username %}" id="all-games-link" style="font-size : 1rem; ">1 Hour <br /> Coins : 500</a></p>                           
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-4 p-0 d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-hourglass-start fa-lg circular-icon"></i>
+                        </div>
+                        <div class="col-8">
+                            <p class="m-3 mb-4 d-flex aign-items-start " style="font-size: 0.8rem;"><a href="{% url 'shop' user.username %}" id="all-games-link" style="font-size : 1rem; ">2 Hour <br /> Coins : 1000</a></p>                           
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-4 p-0 d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-hourglass-start fa-lg circular-icon"></i>
+                        </div>
+                        <div class="col-8">
+                            <p class="m-3 mb-4 d-flex aign-items-start " style="font-size: 0.8rem;"><a href="{% url 'shop' user.username %}" id="all-games-link" style="font-size : 1rem; ">3 Hour <br /> Coins : 1200</a></p>                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-9">
+            <div class="row sec-col" style="margin: 12px; height: 25rem;">
+                <div class="col-12 p-0">
+                    <div class="row justify-content-between m-0">
+                        <div class="col-8 p-0">
+                            <h5 class="m-2 mb-0 d-flex aign-items-start ">Games</h5>
+                        </div>
+                        <div class="col-2 p-0">
+                            <a href="{% url 'games' user.username %}" id="all-games-link" class="m-2 mb-0 d-flex aign-items-end ">View All Games</a>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <!-- Just add the games  -->
+                        {% for g in games  %}
+                        <div class="col-3 m-2 gm-sc d-flex align-items-end justify-content-center" style="background-image: url(../../static/gheaven/images/game_icons/{{g.icon_url}}); ">
+                            <p style="font-size: 20px;">{{ g.name }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row sec-col" style="margin: 18px 12px;">
+                <div class="col-8 p-0 m-0">
+                    <div class="row m-0">
+                        <div class="col-12 mt-5 mb-4 d-flex justify-content-center">
+                            <h2>Welcome {{ user.username }}</h2>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-12 mt-2 mb-2 d-flex justify-content-center">
+                            <img src="{% static 'gheaven/images/logo.jpg' %}" class="logo-icon p-0 m-0" style="width: 80px; height: 80px;">
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-12 mt-4 mb-5 d-flex justify-content-center">
+                            <h1>GAMERS HEAVEN</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 " style="border-left: 1px solid rgba(255, 255, 255, 0.296) ;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>{% endblock %} 

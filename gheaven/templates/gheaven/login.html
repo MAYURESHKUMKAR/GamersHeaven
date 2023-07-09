@@ -1,0 +1,41 @@
+{% extends 'gheaven/base.html' %}
+{% load static %}
+
+{% block title %} Login Page {% endblock %}
+
+{% block styles %}  {% endblock %}
+
+{% block content %} 
+<header style="padding: 0;">
+
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4 offset-4 justify-content-center" id="lgn-frm">
+            <div class="content">
+                <h3><img src="{% static 'gheaven/images/logo.jpg' %}" class="lgn-logo">GAMERS HEAVEN</h3>
+                <form id="lgn-form" action="{% url 'login-page' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" id="lgn-ele" placeholder="Email or Username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" id="lgn-ele" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn mt-0" id="lgn-btn">Log in</button>
+                </form>
+                
+                <div class="reg-lgn">
+                    <div class="text-center mt-3">
+                        <hr class="hr-text">
+                        <p class="text-white">Don't have an account? <a href="{% url 'register-page' %}">Register</a></p>
+                      </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

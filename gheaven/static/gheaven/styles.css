@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+* {
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+}
+body {
+    background-image: url("./images/bgimg2.jpg");
+    background-size: 100% auto;
+}
+
+header {
+    border-top: 3px;
+    border-style: solid;
+    border-color: #04fff7;
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(5em);
+    background-color: rgba(104, 103, 103, 0.174);
+    padding: 10px 0px;
+}
+
+.logo {
+    width: auto;
+    height: 2em;
+    border-radius: 30%;
+    margin-left: 1em;
+}
+
+
+nav ul {
+    background: rgba(0, 0, 0, 0.371);
+    border-radius: 60px;
+    padding: 0px;
+    margin : 0;
+    height: 100%;
+}
+
+nav ul li {
+    height: 100%;
+    display: inline-block;
+    list-style: none;
+    color: #edf0f1;
+    padding: 0.5em 20px;
+}
+
+nav li a {
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+    color: #edf0f1;
+}
+
+nav li a:active {
+    text-decoration: none;
+    color: white;
+    background-color: #0087a97f;
+    border-radius: 10px;
+    padding: 0.5rem;
+    text-shadow: none;
+}
+
+#checkout-btn {
+    text-decoration: none;
+    color: white;
+    background-color: #0087a97f;
+    border-radius: 10px;
+    padding: 0.5rem;
+    text-shadow: none;
+}
+
+#checkout-btn:hover {
+    background-color: #0088a9;
+}
+
+#user_logo {
+    font-size: 2em;
+    margin-right: 1em;
+    color: #edf0f1;
+}
+
+.sidebar {
+    width: 16.5em;
+    height: 100%;
+    backdrop-filter: blur(10em);
+    background-color: rgba(104, 103, 103, 0.321);
+    padding: 40px 40px 9.2pc;
+}
+
+.sidebar h3 {
+    font-weight: 500;
+    color: #edf0f1;
+    text-align: left;
+    padding-bottom: 1em;
+}
+
+.search-bar {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 60px;
+    padding: 10px 20px;
+    margin-bottom: 1.5em;
+}
+
+.search-bar form {
+    display: flex;
+}
+
+.search-bar input {
+    width: 1em;
+    flex: 1;
+    background: transparent;
+    border: 0;
+    outline: none;
+    padding: 0;
+}
+
+::placeholder {
+    color: #edf0f1;
+}
+
+.search-bar button {
+    border: 0;
+    height: auto;
+    background: transparent;
+    cursor: pointer;
+}
+
+#all_list {
+    list-style: none;
+    padding: 0;
+    font-size: 0.8em;
+    height: auto;
+    width: 100%;
+}
+
+.al_item {
+    display: inline-block;
+    list-style: none;
+    color: #edf0f1;
+    padding: 0.5em 0px;
+}
+
+.al_item a {
+    text-decoration: none;
+    display: inline-block;
+    list-style: none;
+    color: #edf0f1;
+}
+
+.al_list {
+    list-style: none;
+
+}
+
+.al_list li {
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+}
+
+#more {
+    display: none;
+}
+
+#myBtn {
+    padding: 0;
+    border: 0;
+    height: auto;
+    background: transparent;
+    cursor: pointer;
+    color: #0088a9;
+}
+
+/* login form  */
+
+#lgn-frm {
+    height: 860px;
+    backdrop-filter: blur(10em);
+    color: #edf0f1;
+    align-items: center;
+}
+
+.lgn-logo {
+    width: auto;
+    height: 2em;
+    border-radius: 30%;
+    margin-right: 12px;
+}
+
+.lgn-title {
+    color: #edf0f1;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+  }
+
+#lgn-form {
+    width: 100%;
+}
+  
+#lgn-btn {
+    background-color: #04fff7;
+    width: 80%;
+    margin: 5% 10%;
+    border-radius: 59px;
+}
+
+#lgn-ele {
+    background-color: rgba(255, 255, 255, 0.818);
+    border: 0;
+    border-bottom: 2px solid rgb(0, 255, 255);
+    width: 80%;
+    margin: 5% 10%;
+    border-radius: 4px;
+}
+
+.lgn-ways a {
+    width: 100%;
+    padding: 8px;
+    border: 0;
+}
+
+#home-link {
+    text-decoration: none;
+    color: #edf0f1;
+}
+
+#all-games-link {
+    text-decoration: none;
+    color: white;
+    
+    
+}
+
+#all-games-link:hover {
+    color: #04fff7;
+    
+}

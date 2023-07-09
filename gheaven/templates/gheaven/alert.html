@@ -1,0 +1,28 @@
+{% extends 'gheaven/base.html' %}
+{% load static %}
+
+{% block title %} Login Page {% endblock %}
+
+{% block styles %}  {% endblock %}
+
+{% block content %} 
+<header style="padding: 0;">
+
+</header>
+
+<div class="container-fluid">
+    <div class="row" id="lgn-frm">
+        <div class="col-4 p-0"></div>
+        <div class="col-4 justify-content-center" id="lgn-frm">
+            <div class="content">
+                <i class="fa-regular fa-face-smile" style="font-size: 50px;"></i><br>
+                <h3>Registration Successful !</h3>
+                <h4>Back to Login</h4>
+                <a href="{% url 'login-page' %}" class="btn" id="lgn-btn">Log in</a>
+            </div>
+        </div>
+        <div class="col-4 p-0"></div>
+    </div>
+</div>
+</div>
+{% endblock %}

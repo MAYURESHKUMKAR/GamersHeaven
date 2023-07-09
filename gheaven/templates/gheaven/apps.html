@@ -1,0 +1,99 @@
+{% extends 'gheaven/base.html' %}
+{% load static %}
+
+{% block title %} Gamers Heaven {% endblock %}
+
+{% block styles %}
+<style>
+    .sec-col {
+        backdrop-filter: blur(3em);
+        background-color: rgba(104, 103, 103, 0.321);
+        /* box-shadow: 3px 5px 5px rgba(255, 255, 255, 0.312); */
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .gm-sc {
+        background-color: white;
+        border-radius: 20%;
+        padding: 0;
+        width: 10rem;
+        height: 10rem;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %} 
+
+
+<header>
+    {% include 'gheaven/navbar.html' %}
+</header>
+
+
+<div class="container-fluid" style="padding-left: 0px; padding-right: 0px; height: 49.6rem;">
+    <div class="row m-0" style="height: 100%;">
+        <div class="col-2 sec-col ml-0">
+            <div class="row m-0">
+                <div class="col-12 mt-5">
+                    <h3 class="text-white m-0 d-flex aign-items-center justify-content-center">Apps</h3>
+                </div>
+            </div>
+
+
+            <div class="row m-0">
+                <div class="col-12" style="padding-left: 35px; padding-right: 35px; margin-top: 2.6rem;">
+                    <div class="search-bar m-0">
+                        <form action="{% url 'searchapp' %}" method="GET">
+                            <input type="hidden" name= "username" value={{ user.username }}>
+                            <input type="text" name="appname" placeholder="Search app">
+                            <button type="submit"><i class="fa-solid fa-search medium"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row m-0">
+                <div class="col-12 p-0">
+                    <div class="row m-0">
+                        <div class="col-12 p-5 pt-0 pr-0 pb-0 mt-4 text-white">
+                            
+                            <ul class="al_list">
+                                <li><a href="{% url 'apps' user.username %}" id="all-games-link">All Tags</a></li>
+                                {% for appsgenre in appsgenre %}
+                                    <li><a href="{% url 'tagwiseapps' user.username appsgenre.id %}" id="all-games-link">{{ appsgenre.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-10 text-white" style="padding: 1rem 0 0 3rem; text-shadow: 3px 3px 3px rgb(0, 0, 0);">
+            <div class="row m-0">
+                <div class="row p-0 m-0">
+                    <div class="col-12 p-0">
+                        <h5 class="m-1">All Apps</h5>
+                    </div>
+                </div>
+                <div class="row p-0 m-0">
+                    <!-- Just add the games  -->
+
+                    {% for a in apps %}
+                    <div class="col-3 m-1 ml-0 gm-sc d-flex align-items-end justify-content-center" style="background-image: url(../../static/gheaven/images/app_icon/{{a.app_icon_url}});">
+                        
+                        <p style="font-size: 1.125rem;">{{ a.app_name }}</p>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %} 

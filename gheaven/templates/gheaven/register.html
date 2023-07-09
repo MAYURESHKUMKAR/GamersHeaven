@@ -1,0 +1,117 @@
+{% extends 'gheaven/base.html' %}
+{% load static %}
+
+{% block title %}Register Page{% endblock %}
+
+{% block styles %} 
+<style>
+    input {
+        color: aliceblue;
+    }
+
+    #lgn-frm {
+height: 860px;
+backdrop-filter: blur(10em);
+color: #edf0f1;
+align-items: center;
+}
+
+
+.lgn-logo {
+width: auto;
+height: 2em;
+border-radius: 30%;
+margin-right: 12px;
+}
+
+.lgn-title {
+color: #edf0f1;
+}
+
+.content {
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;
+flex-direction: column;
+}
+
+
+#lgn-form {
+width: 100%;
+}
+
+#lgn-btn {
+background-color: #04fff7;
+width: 80%;
+margin: 5% 10%;
+border-radius: 59px;
+}
+
+#lgn-ele {
+background-color: rgba(255, 255, 255, 0.818);
+border: 0;
+border-bottom: 2px solid rgb(0, 255, 255);
+width: 80%;
+margin: 5% 10%;
+border-radius: 4px;
+}
+
+.lgn-ways a {
+width: 100%;
+padding: 8px;
+border: 0;
+}
+</style>
+{% endblock %}
+
+{% block content %} 
+<header style="padding: 0;">
+
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4 offset-4 justify-content-center" id="lgn-frm">
+            <div class="content text-white">
+                <h3><img src="{% static 'gheaven/images/logo.jpg' %}" class="lgn-logo">GAMERS HEAVEN</h3>
+                <form id="lgn-form text-white" action="{% url 'register-page' %}" method="post"> 
+                    {% csrf_token %}    
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="lgn-ele" placeholder="Username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="lgn-ele" placeholder="Password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="lgn-ele" placeholder="Email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="lgn-ele" placeholder="First Name" name="firstname">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="lgn-ele" placeholder="Last Name" name = "lastname">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="lgn-ele" placeholder="Phone Number" name="phonenumber">
+                    </div>
+                    <div class="form-group">
+                        <input type="date" class="form-control" id="lgn-ele" placeholder="Date Of Birth (dd/mm/yyyy)" name="dob">
+                    </div>
+                    <button type="submit" class="btn" id="lgn-btn" style="width: 50%;
+                    margin: 5% 25%;">Register</button>
+                </form>
+                
+                
+                <div class="reg-lgn">
+                    <div class="text-center mt-4">
+                        <hr class="hr-text">
+                        <p class="text-white">Already have an account? <a href="{% url 'login-page' %}">Log In</a></p>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} 

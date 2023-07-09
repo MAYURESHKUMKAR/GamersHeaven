@@ -1,0 +1,139 @@
+{% extends 'gheaven/base.html' %}
+{% load static %}
+
+{% block title %} Gamers Heaven {% endblock %}
+
+{% block styles %} 
+<style>
+    .sec-col {
+        
+        backdrop-filter: blur(3em);
+            background-color: rgba(104, 103, 103, 0.321);
+        /* box-shadow: 3px 5px 5px rgba(255, 255, 255, 0.312); */
+        border-radius: 0;
+        padding: 0;
+       
+    }
+
+    .gm-sc {
+        border-radius: 15px;
+        padding: 0;
+        height: 22rem;
+        width : 17rem;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %} 
+
+<header>
+    {% include 'gheaven/navbar.html' %}
+</header>
+
+
+<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
+    <div class="row m-0" style="height: 100%;">
+        <div class="col-2 sec-col ml-0">
+            <div class="row m-0">
+                <div class="col-12 mt-5">
+                    <h3 class="text-white m-0 d-flex aign-items-center justify-content-center">Games</h3>
+                </div>
+            </div>
+
+
+            <div class="row m-0">
+                <div class="col-12" style="padding-left: 35px; padding-right: 35px; margin-top: 2.6rem;">
+                    <div class="search-bar m-0">
+                        <form action="{% url 'searchgame' %}" method="GET">
+                            <input type="hidden" name= "username" value={{ user.username }}>
+                            <input type="text" name="gamename" placeholder="Search game">
+                            <button type="submit"><i class="fa-solid fa-search medium"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row m-0">
+                <div class="col-12 p-0">
+
+                    <div class="row m-0">
+                        <div class="col-12 p-5 pt-0 pr-0 pb-0 mt-4 text-white">
+                            <h6>BROWSE BY TAG</h6>
+                            <ul class="al_list">
+                                <li><a href="{% url 'games' user.username %}" id="all-games-link">All Tags</a></li>
+                                {% for genre in genre  %}
+                                    <li><a href="{% url 'tagwisegames' user.username genre.id %}" id="all-games-link">{{genre.name}}</a></li>
+                                    {% if genre.name == "Sports" %}
+                                        <span id="dots"></span><span id="more">
+                                    {% endif %}
+                                    {% if genre.name == "Turn-based strategy" %}
+                                        </span>
+                                    {% endif %}
+                                {% endfor %}
+                                <li><button onclick="myFunction()" id="myBtn">Read more</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row pt-1 pb-4">
+                        <br><br><br><br><br>   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-10 text-white" style="
+        padding: 1rem 0 0 3rem;
+        text-shadow: 3px 3px 3px rgb(0, 0, 0);
+    ">
+            <div class="row m-0">
+                {% comment %} 
+                    Add the last played games
+                <div class="row p-0 m-0">
+                    <!-- Just add the games  -->
+                    <div class="col-3 m-1 mb-2 gm-sc d-flex align-items-end justify-content-center">
+                        <p style="font-size: 1.125rem;">Last Played Games</p>
+                    </div>
+                </div> {% endcomment %}
+
+
+                <div class="row p-0 m-0">
+                    <div class="col-12 p-0">
+                        <h5 class="m-1">Games</h5>
+                    </div>
+                </div>
+                <div class="row p-0 m-0">
+                    <!-- Just add the games  -->
+                    {% for g in games  %}
+                    <div class="col-3 m-2 gm-sc d-flex align-items-end justify-content-center" style="background-image: url(../../static/gheaven/images/game_icons/{{g.icon_url}}); ">
+                        <p style="font-size: 20px;">{{ g.name }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function myFunction() {
+        var dots = document.getElementById("dots");
+        var moreText = document.getElementById("more");
+        var btnText = document.getElementById("myBtn");
+
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less";
+            moreText.style.display = "inline";
+        }
+    }
+
+
+
+</script>
+{% endblock %} 

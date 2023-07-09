@@ -1,0 +1,81 @@
+{% extends 'gheaven/admin/base.html' %}
+{% load static %}
+
+{% block styles %} {% endblock %}
+
+{% block content %}
+
+
+<nav class="navbar navbar-expand-lg navbar-dark p-0 up-sec"
+style="backdrop-filter: blur(3rem); background-color: rgba(0, 0, 0, 0.547); border-bottom: 1px solid rgb(0, 136, 255); ">
+    {% include 'gheaven/admin/navbar.html' %}
+</nav>
+
+
+<div class="container-fluid text-white">
+<div class="row">
+    <!-- SideBar -->
+    {% include 'gheaven/admin/sidebar.html' %}
+
+    <!-- Sidebar Windows -->
+
+    <div class="col-11 p-0"
+        style="backdrop-filter: blur(0.5rem); background-color: rgba(104, 103, 103, 0.321);">
+
+
+        <div class="row p-0 m-0 mt-3">
+            <h3>Payment Information</h3>
+            <div class="col-12 p-0 tab-col">
+                <table class="table text-white text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col"><b>Status</b></th>
+                            <th scope="col">User ID</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Payment Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>mayu0506</td>
+                            <td>340</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>n3cro</td>
+                            <td>640</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>YellowFlash</td>
+                            <td>500</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>X9tine</td>
+                            <td>430</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>Xenox</td>
+                            <td>450</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td>Deadwolf</td>
+                            <td>300</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>{% endblock %}
