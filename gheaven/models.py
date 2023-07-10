@@ -67,13 +67,14 @@ class Order(models.Model):
 
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     total_time = models.DurationField()
-    package_names = models.CharField(max_length=255)
+    package_names = models.CharField(max_length=255, blank=True)
     date_and_time = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     order_type = models.CharField(max_length=20, choices=TYPE_CHOICES)
 
     def save(self, *args, **kwargs):
-        self.user.remaining_time += self.total_time
+        self.user.remaining_time += (self.total_time/2)
+        self.user.account_balance -= self.total_amount
         super().save(*args, **kwargs)
         self.user.save()
 

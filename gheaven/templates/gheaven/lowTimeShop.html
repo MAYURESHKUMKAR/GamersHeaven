@@ -47,11 +47,6 @@
 {% block content %}
 
 
-<header>
-    {% include 'gheaven/navbar.html' %}
-</header>
-
-
 <div class="container-fluid" style="padding-left: 0px; padding-right: 0px; height: 49.6rem;">
     <div class="row m-0" style="height: 100%;">
         <div class="col-12 text-white" style="padding: 1rem;">
@@ -111,7 +106,7 @@
                             <p style="font-size: 1.125rem;" class="p-1 m-0">Cart</p>
                         </div>
                         <div class="col-12">
-                            <form action="{% url 'payment' user.username %}" method="POST">
+                            <form action="{% url 'lowtimepayment' user.username %}" method="POST">
                                 {% csrf_token %}
                                 <div id="cart-empty-message">
                                     <i class="fa-solid fa-cart-shopping s-icon medium d-flex align-items-end justify-content-center p-4"

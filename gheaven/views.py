@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .models import User, Game, Genre, App, AppsGenre
+from .models import User, Game, Genre, App, AppsGenre, Order
 from django.contrib import messages
+from datetime import datetime,time, timedelta
 # Create your views here.
 
 # User Views
@@ -10,16 +11,26 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-
+        et = timedelta(seconds=5)
         games = Game.objects.all()
         user = User.objects.get(username=username)
+        apps = App.objects.all()
         if user :
             if user.password == password:
-                return render(request, "gheaven/home.html", {
-                    "user" : user,
-                    "games" : games,
-                })
-
+                if user.remaining_time > et :
+                    return render(request, "gheaven/home.html", {
+                        "user" : user,
+                        "games" : games,
+                        "apps" : apps,
+                    })
+                else :
+                    prices = {
+                        "one" : 70,
+                        "two" : 130,"three" : 250,}
+                    return render(request, "gheaven/lowTimeShop.html", {
+                        "user" : user,
+                        "packageprice" : prices,
+                    })
             
         
                
@@ -142,10 +153,71 @@ def searchapp(request):
     })
 
 def shop(request, user):
+    prices = {
+        "one" : 70,
+        "two" : 130,
+        "three" : 250,
+    }
     user1 = User.objects.get(username=user)  
     return render(request, "gheaven/shop.html", {
         "user" : user1,
+        "packageprice" : prices,
     })
+
+def shopAddTime(request, user):
+    if request.method == 'POST':
+        user = User.objects.get(username=user)
+        my_values = request.POST['amount']
+        time = request.POST['time']
+        return render(request, "gheaven/lowtimepayment.html", {
+            "user" : user,
+            "amount" : my_values,
+            "time" : time,
+        })
+    
+
+def shoppayment(request, user):
+    if request.method == 'POST':
+        user = User.objects.get(username=user)
+        my_values = request.POST['amount']
+        time = request.POST['time']
+        return render(request, "gheaven/payment.html", {
+            "user" : user,
+            "amount" : my_values,
+            "time" : time,
+        })
+    
+def lowtimepayment(request, user):
+    if request.method == 'POST':
+        user = User.objects.get(username=user)
+        my_values = request.POST['amount']
+        time = request.POST['time']
+        return render(request, "gheaven/payment.html", {
+            "user" : user,
+            "amount" : my_values,
+            "time" : time,
+        })
+    
+def paynow(request, user):
+    if request.method == 'POST':
+        user =User.objects.get(username=user)
+        totalamount = int(request.POST['totalamount'])
+        totaltime = int(request.POST['totaltime'])
+        tt = timedelta(minutes=totaltime)
+       
+        ordertype = request.POST['ordertype']
+        if user.account_balance > totalamount :
+            neworder = Order.objects.create(user = user,total_amount = totalamount,total_time = tt,order_type = ordertype)
+
+            neworder.save()
+            msg = "Payment Successful"
+            return render(request, "gheaven/payalert.html", {"msg" : msg, "user" : user.username})
+
+        else :
+            msg = "Payment Unsuccessful(low balance add from admin)"
+            return render(request, "gheaven/payalert.html", {"msg" : msg, "user" : user.username})
+    
+
 
 def account(request, user):
     user1 = User.objects.get(username=user)
@@ -155,6 +227,9 @@ def account(request, user):
 
 def alert(request):
     return render(request, "gheaven/alert.html")
+
+def payalert(request):
+    return render(request, "gheaven/payalert.html")
 
 
 
