@@ -9,7 +9,7 @@
         backdrop-filter: blur(3em);
         background-color: rgba(104, 103, 103, 0.321);
         /* box-shadow: 3px 5px 5px rgba(255, 255, 255, 0.312); */
-        border-radius: 10px;
+        {% comment %} border-radius: 10px; {% endcomment %}
         padding: 0;
     }
 
@@ -47,8 +47,8 @@
                         <div class="col-12 p-4 pt-0 pr-0 pb-0 mt-4 text-white">
                             <h6>
                                 <ul class="al_list">
-                                    <li><a href="account.html" id="lnk-acc">General Information</a></li>
-                                    <li><a href="#" id="lnk-acc">Payment History</a></li>
+                                    <li><a href="{% url 'account' user.username timer %}" id="lnk-acc">General Information</a></li>
+                                    <li><a href="{% url 'paymenthistory' user.username %}" id="lnk-acc">Payment History</a></li>
                                     <li><a href="#" id="lnk-acc">Edit Account</a></li>
                                 </ul>
                             </h6>

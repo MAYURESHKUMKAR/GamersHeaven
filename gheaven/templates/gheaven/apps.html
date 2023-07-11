@@ -61,7 +61,7 @@
                         <div class="col-12 p-5 pt-0 pr-0 pb-0 mt-4 text-white">
                             
                             <ul class="al_list">
-                                <li><a href="{% url 'apps' user.username %}" id="all-games-link">All Tags</a></li>
+                                <li><a href="{% url 'apps' user.username timer %}" id="all-games-link">All Tags</a></li>
                                 {% for appsgenre in appsgenre %}
                                     <li><a href="{% url 'tagwiseapps' user.username appsgenre.id %}" id="all-games-link">{{ appsgenre.name }}</a></li>
                                 {% endfor %}

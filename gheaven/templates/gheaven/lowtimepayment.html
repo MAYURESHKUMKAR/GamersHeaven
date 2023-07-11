@@ -22,7 +22,7 @@
         <div class="col-4 offset-4 justify-content-center" id="lgn-frm">
             <div class="content text-white">
                 <h2>MAKE PAYMENT</h2>
-                <form id="lgn-form text-white" action="{% url 'paynow' user.username %}" method="post"> 
+                <form id="lgn-form text-white" action="{% url 'paynow' user.username timer %}" method="post"> 
                     {% csrf_token %}
                     <div class="form-group">
                         <label class="text-center"> Total Amount 

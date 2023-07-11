@@ -106,7 +106,7 @@
                             <p style="font-size: 1.125rem;" class="p-1 m-0">Cart</p>
                         </div>
                         <div class="col-12">
-                            <form action="{% url 'lowtimepayment' user.username %}" method="POST">
+                            <form action="{% url 'lowtimepayment' user.username timer %}" method="POST">
                                 {% csrf_token %}
                                 <div id="cart-empty-message">
                                     <i class="fa-solid fa-cart-shopping s-icon medium d-flex align-items-end justify-content-center p-4"

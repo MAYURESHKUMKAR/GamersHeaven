@@ -63,7 +63,7 @@
             <div class="row sec-col" style="margin: 12px;">
                 <div class="col-6 ">
                     <h6 class="m-2 mb-0 d-flex aign-items-center justify-content-center">Time Remaining</h6>
-                    <h4 class="m-2 d-flex aign-items-center justify-content-center">{{ user.remaining_time }}</h4>
+                    <h4 class="m-2 d-flex aign-items-center justify-content-center"><div id="timer">{{ user.remaining_time }}</div></h4>
                 </div>
                 <div class="col-6 p-0" style="border-left: 1px solid rgba(255, 255, 255, 0.296);">
                     <div class="row m-0" style="height: 100%;">
@@ -96,7 +96,7 @@
                             <i class="fa-solid fa-hourglass-start fa-lg circular-icon"></i>
                         </div>
                         <div class="col-8">
-                            <p class="m-3 mb-4 d-flex aign-items-start " style="font-size: 0.8rem;"><a href="{% url 'shop' user.username %}" id="all-games-link" style="font-size : 1rem; ">1 Hour <br /> Coins : 500</a></p>                           
+                            <p class="m-3 mb-4 d-flex aign-items-start " style="font-size: 0.8rem;"><a href="{% url 'shop' user.username timer %}" id="all-games-link" style="font-size : 1rem; ">1 Hour <br /> Coins : 500</a></p>                           
                         </div>
                     </div>
                     <div class="row m-0">
@@ -104,7 +104,7 @@
                             <i class="fa-solid fa-hourglass-start fa-lg circular-icon"></i>
                         </div>
                         <div class="col-8">
-                            <p class="m-3 mb-4 d-flex aign-items-start " style="font-size: 0.8rem;"><a href="{% url 'shop' user.username %}" id="all-games-link" style="font-size : 1rem; ">2 Hour <br /> Coins : 1000</a></p>                           
+                            <p class="m-3 mb-4 d-flex aign-items-start " style="font-size: 0.8rem;"><a href="{% url 'shop' user.username timer %}" id="all-games-link" style="font-size : 1rem; ">2 Hour <br /> Coins : 1000</a></p>                           
                         </div>
                     </div>
                     <div class="row m-0">
@@ -112,7 +112,7 @@
                             <i class="fa-solid fa-hourglass-start fa-lg circular-icon"></i>
                         </div>
                         <div class="col-8">
-                            <p class="m-3 mb-4 d-flex aign-items-start " style="font-size: 0.8rem;"><a href="{% url 'shop' user.username %}" id="all-games-link" style="font-size : 1rem; ">3 Hour <br /> Coins : 1200</a></p>                           
+                            <p class="m-3 mb-4 d-flex aign-items-start " style="font-size: 0.8rem;"><a href="{% url 'shop' user.username timer %}" id="all-games-link" style="font-size : 1rem; ">3 Hour <br /> Coins : 1200</a></p>                           
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                             <h5 class="m-2 mb-0 d-flex aign-items-start ">Games</h5>
                         </div>
                         <div class="col-2 p-0">
-                            <a href="{% url 'games' user.username %}" id="all-games-link" class="m-2 mb-0 d-flex aign-items-end ">View All Games</a>
+                            <a href="{% url 'games' user.username timer %}" id="all-games-link" class="m-2 mb-0 d-flex aign-items-end ">View All Games</a>
                         </div>
                     </div>
                     <div class="row m-0">
@@ -165,4 +165,48 @@
             </div>
         </div>
     </div>
-</div>{% endblock %} 
+</div>
+
+
+    <script>
+       // Get the initial value from the database
+       var initialValue = "{{ user.remaining_time }}";
+    
+       // Split the initial value into hours, minutes, and seconds
+       var timeParts = initialValue.split(":");
+       var hours = parseInt(timeParts[0]);
+       var minutes = parseInt(timeParts[1]);
+       var seconds = parseInt(timeParts[2]);
+
+         // Convert hours, minutes, and seconds to milliseconds
+         var initialTime = ((hours* 60 * 60) + (minutes * 60) + (seconds)) * 1000;
+         0
+             // Set the target date and time for the countdown
+             var targetDate = new Date().getTime() + initialTime;
+         
+             // Update the countdown every 1 second
+             var countdownInterval = setInterval(function() {
+                 // Get the current date and time
+                 var now = new Date().getTime();
+         
+                 // Calculate the remaining time
+                 var remainingTime = targetDate - now;
+         
+                 // Calculate days, hours, minutes, and seconds
+                 var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+                 var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                 var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                 var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+            // Display the countdown timer
+            document.getElementById("timer").innerHTML = days + ":" +  hours + ":" + minutes + ":" + seconds ;
+
+            // If the countdown is finished, display a message
+            if (remainingTime < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("timer").innerHTML = "Session has ended!";
+            }
+        }, 1000);
+    </script>
+
+{% endblock %} 

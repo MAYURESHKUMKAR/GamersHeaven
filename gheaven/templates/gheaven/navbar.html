@@ -1,15 +1,99 @@
 {% load static %}
+{% csrf_token %}
 <h6 class="text-white">
     <img class="logo" src="{% static 'gheaven/images/logo.jpg' %}" alt="Gamers_Heaven" />
     Gamers Heaven
 </h6>
 <nav>
     <ul>
-        <li><a href="{% url 'home' user.username %}">HOME</a></li>
-        <li><a href="{% url 'games' user.username %}">GAMES</a></li>
-        <li><a href="{% url 'apps' user.username %}">APPS</a></li>
-        <li><a href="{% url 'shop' user.username %}">SHOP</a></li>
-        <li><a href="{% url 'account' user.username %}">ACCOUNT</a></li>
+        <form method="GET">
+            {% csrf_token %}
+            
+                <input type="hidden" name="timer" id="xyz"required>
+        <li><button onclick="redirect()" style="background-color:transparent; border:0;"><a id="home" href="">HOME</a></button></li>
+        <li><button onclick="redirect()" style="background-color:transparent; border:0;"><a id="games" href="">GAMES</a></button></li>
+        <li><button onclick="redirect()" style="background-color:transparent; border:0;"><a id="apps" href="">APPS</a></button></li>
+        <li><button onclick="redirect()" style="background-color:transparent; border:0;"><a id="shop" href="">SHOP</a></button></li>
+        <li><button onclick="redirect()" style="background-color:transparent; border:0;"><a id="account" href="">ACCOUNT</a></button></li>
+        </form>
     </ul>
 </nav>
-<a id="user_logo" href="{% url 'account' user.username %}"><i class="fa-solid fa-user medium"></i></a>
+
+<form class="d-flex text-white" id="logoutForm" action="{% url 'logout' %}" method="POST">
+    {% csrf_token %}
+        <input type="hidden" name="username" value={{user.username}} required><br>
+        <label class="p-2 m-0 mr-1">Time :</label>
+        <input class="p-2 m-0 mr-1" type="text" name="timer"  id="time" style="font-size:1.05rem;" readonly></input>
+        <button class="btn text-black" type="submit" style="background-color : #04fff7; border-radius:10px;"> logout </button>
+    </form>
+    
+    <script>
+        // Get the initial value from the database
+        var initialValue = "{{ user.remaining_time }}";
+    
+        // Split the initial value into hours, minutes, and seconds
+        var timeParts = initialValue.split(":");
+        var hours = parseInt(timeParts[0]);
+        var minutes = parseInt(timeParts[1]);
+        var seconds = parseInt(timeParts[2]);
+    
+        // Convert hours, minutes, and seconds to milliseconds
+        var initialTime = ((hours* 60 * 60) + (minutes * 60) + (seconds)) * 1000;
+    0
+        // Set the target date and time for the countdown
+        var targetDate = new Date().getTime() + initialTime;
+    
+        // Update the countdown every 1 second
+        var countdownInterval = setInterval(function() {
+            // Get the current date and time
+            var now = new Date().getTime();
+    
+            // Calculate the remaining time
+            var remainingTime = targetDate - now;
+    
+            // Calculate days, hours, minutes, and seconds
+            var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+    
+            // Display the countdown timer
+            document.getElementById("time").value = days + ":" + hours + ":" + minutes + ":" + seconds ;
+            document.getElementById("xyz").value = days + ":" + hours + ":" + minutes + ":" + seconds ;
+    
+            // If the countdown is finished, display a message
+            if (remainingTime < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("time").innerHTML = "Session has ended!";
+                
+            }
+
+            function logout() {
+                document.getElementById('logoutForm').submit();
+            }
+
+            setTimeout(logout, remainingTime);
+        }, 1000);
+
+
+        function redirect() {
+            var inputValue = document.getElementById("xyz").value;
+            var initialValue = "{{ user.username }}";
+
+            var link1 = document.getElementById("home");
+            link1.href = ""+ "/" +  "home/" + initialValue + "/" + inputValue;
+            
+            var link2 = document.getElementById("games");
+            link2.href = ""+ "/" +  "games/" + initialValue + "/" + inputValue;
+            
+            var link3 = document.getElementById("apps");
+            link3.href = ""+ "/" +  "apps/" + initialValue + "/" + inputValue;
+            
+            var link4 = document.getElementById("shop");
+            link4.href = ""+ "/" +  "shop/" + initialValue + "/" + inputValue;
+            
+            var link5 = document.getElementById("account");
+            link5.href = ""+ "/" +  "account/" + initialValue + "/" + inputValue;
+          }
+    </script>
+

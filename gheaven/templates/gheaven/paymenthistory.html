@@ -1,0 +1,101 @@
+{% extends 'gheaven/base.html' %}
+{% load static %}
+
+{% block title %} Gamers Heaven {% endblock %}
+
+{% block styles %}
+<style>
+    .sec-col {
+        backdrop-filter: blur(3em);
+        background-color: rgba(104, 103, 103, 0.321);
+        /* box-shadow: 3px 5px 5px rgba(255, 255, 255, 0.312); */
+        {% comment %} border-radius: 10px; {% endcomment %}
+        padding: 0;
+    }
+
+    #lnk-acc {
+        text-decoration: none;
+        color: aliceblue;
+    }
+
+    .gm-sc {
+        background-color: rgba(0, 255, 255, 0.271);
+        border-radius: 15px;
+        padding: 0;
+        height: 22rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<header>
+    {% include 'gheaven/navbar.html' %}
+</header>
+
+<div class="container-fluid" style="padding-left: 0px; padding-right: 0px; height: 49.6rem;">
+    <div class="row m-0" style="height: 100%;">
+        <div class="col-2 sec-col ml-0">
+            <div class="row m-0">
+                <div class="col-12 mt-5">
+                    <h3 class="text-white m-0 d-flex aign-items-center justify-content-center">Account</h3>
+                </div>
+            </div>
+
+            <div class="row m-0">
+                <div class="col-12 p-0">
+                    <div class="row m-0">
+                        <div class="col-12 p-4 pt-0 pr-0 pb-0 mt-4 text-white">
+                            <h6>
+                                <ul class="al_list">
+                                    <li><a href="{% url 'account' user.username %}" id="lnk-acc">General Information</a></li>
+                                    <li><a href="{% url 'paymenthistory' user.username %}" id="lnk-acc">Payment History</a></li>
+                                    <li><a href="#" id="lnk-acc">Edit Account</a></li>
+                                </ul>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-10 text-white" style="padding: 1rem 1.5rem 0 1.5rem; text-shadow: 1px 1px 5px black;">
+            <div class="row m-0">
+                <div class="row p-0 m-0" style="border-bottom: 1px solid white;">
+                    <div class="col-12 p-0">
+                        <h4 class="m-1">Payment History</h4>
+                    </div>
+                </div>
+                <div class="row p-0 m-0">
+                    <div class="col-12 mt-3 mb-2 p-0 sec-col">
+                        <table class="table table-bordered text-white p-0 m-0">
+                            <thead>
+                                <tr>
+                                  <th scope="col">Order Id</th>
+                                  <th scope="col">Date Time</th>
+                                  <th scope="col">Order Type</th>
+                                  <th scope="col">Total Time</th>
+                                  <th scope="col">Paid Amount</th>
+                                </tr>
+                            </thead>
+                            {% for order in orders  %}
+                            <tbody>
+                                <tr>
+                                  <th scope="row">{{ order.id }}</th>
+                                  <td>{{ order.date_and_time }}</td>
+                                  <td>{{ order.order_type }}</td>
+                                  <td>{{ order.total_time }}</td>
+                                  <td>{{ order.total_amount }}</td>
+                                </tr>
+                            </tbody>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

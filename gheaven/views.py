@@ -1,8 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .models import User, Game, Genre, App, AppsGenre, Order
+from .models import User, Game, Genre, App, AppsGenre, Order, Payment
 from django.contrib import messages
 from datetime import datetime,time, timedelta
+from django.contrib.auth import logout
 # Create your views here.
 
 # User Views
@@ -11,7 +12,7 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        et = timedelta(seconds=5)
+        et = timedelta(minutes=5)
         games = Game.objects.all()
         user = User.objects.get(username=username)
         apps = App.objects.all()
@@ -22,6 +23,7 @@ def login(request):
                         "user" : user,
                         "games" : games,
                         "apps" : apps,
+                        "timer" : user.remaining_time
                     })
                 else :
                     prices = {
@@ -30,6 +32,7 @@ def login(request):
                     return render(request, "gheaven/lowTimeShop.html", {
                         "user" : user,
                         "packageprice" : prices,
+                        "timer" : user.remaining_time   
                     })
             
         
@@ -48,9 +51,7 @@ def register(request):
         phonenumber = request.POST['phonenumber']
         dob = request.POST['dob']
 
-        userobj = User.objects.filter(username = username)
-
-        if userobj.exists:
+        if User.objects.filter(username = username).exists():
             messages.warning(request, "Username already exists")
             return HttpResponseRedirect(request.path_info)
 
@@ -72,28 +73,71 @@ def register(request):
         except Exception as e:
             print("An error occurred while saving:", str(e))        
 
-        return redirect('register-page')
+            return redirect('register-page')
 
-        
-    return render(request, "gheaven/register.html")
+    # return render(request, "gheaven/register.html")
 
+def logout_view(request):
+    if request.method == "POST":
+        usernm = request.POST['username']
+        time = str(request.POST['timer'])
+        time_parts = time.split(":")
 
-def home(request, user):
+        days = int(time_parts[0])
+        hours = int(time_parts[1])
+        minutes = int(time_parts[2])
+        seconds = int(time_parts[3])
+        tt = timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds)
+
+        user = User.objects.get(username=usernm)
+        user.remaining_time = tt
+        user.save()
+
+        logout(request)
+
+        return redirect('login-page')
+
+def home(request, user, timer):
+
     user1 = User.objects.get(username=user)
+    time = str(timer)
+    time_parts = time.split(":")
+
+    days = int(time_parts[0])
+    hours = int(time_parts[1])
+    minutes = int(time_parts[2])
+
+    tt = timedelta(days=days, hours=hours, minutes=minutes)
+    user1.remaining_time = tt
+    user1.save()
+
     games = Game.objects.all()
     return render(request,'gheaven/home.html',{
         "user" : user1,
         "games" : games,
+        "timer" : timer
     })
 
-def games(request, user):
+def games(request, user, timer):
     genre = Genre.objects.all()
     games = Game.objects.all()
     user1 = User.objects.get(username=user)
+    time = str(timer)
+    time_parts = time.split(":")
+
+    days = int(time_parts[0])
+    hours = int(time_parts[1])
+    minutes = int(time_parts[2])
+    seconds = int(time_parts[3])
+
+    tt = timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds)
+    user1.remaining_time = tt
+    user1.save()
     return render(request,'gheaven/games.html',{
         "user" : user1,
         "games" : games,
         "genre" : genre,
+        "timer" : timer
     })
 
 def tagwisegames(request, user, genreid):
@@ -119,14 +163,26 @@ def searchgame(request):
         "genre" : genre,
     })
 
-def apps(request, user):
+def apps(request, user, timer):
     appsgenre = AppsGenre.objects.all()
     apps = App.objects.all()
     user1 = User.objects.get(username=user)
+    time = str(timer)
+    time_parts = time.split(":")
+
+    days = int(time_parts[0])
+    hours = int(time_parts[1])
+    minutes = int(time_parts[2])
+    seconds = int(time_parts[3])
+
+    tt = timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds)
+    user1.remaining_time = tt
+    user1.save()
     return render(request,'gheaven/apps.html',{
         "user" : user1,
         "apps" : apps,
         "appsgenre" : appsgenre,
+        "timer" : timer
     })
 
 def tagwiseapps(request, user, genreid):
@@ -152,19 +208,31 @@ def searchapp(request):
         "appsgenre" : appsgenre,
     })
 
-def shop(request, user):
+def shop(request, user, timer):
     prices = {
         "one" : 70,
         "two" : 130,
         "three" : 250,
     }
-    user1 = User.objects.get(username=user)  
+    user1 = User.objects.get(username=user) 
+    time = str(timer)
+    time_parts = time.split(":")
+
+    days = int(time_parts[0])
+    hours = int(time_parts[1])
+    minutes = int(time_parts[2])
+    seconds = int(time_parts[3])
+
+    tt = timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds)
+    user1.remaining_time = tt
+    user1.save() 
     return render(request, "gheaven/shop.html", {
         "user" : user1,
         "packageprice" : prices,
+        "timer" : timer
     })
 
-def shopAddTime(request, user):
+def shopAddTime(request, user, timer):
     if request.method == 'POST':
         user = User.objects.get(username=user)
         my_values = request.POST['amount']
@@ -173,6 +241,7 @@ def shopAddTime(request, user):
             "user" : user,
             "amount" : my_values,
             "time" : time,
+            "timer" : timer
         })
     
 
@@ -198,12 +267,12 @@ def lowtimepayment(request, user):
             "time" : time,
         })
     
-def paynow(request, user):
+def paynow(request, user, timer):
     if request.method == 'POST':
         user =User.objects.get(username=user)
         totalamount = int(request.POST['totalamount'])
         totaltime = int(request.POST['totaltime'])
-        tt = timedelta(minutes=totaltime)
+        tt = timedelta(hours=totaltime)
        
         ordertype = request.POST['ordertype']
         if user.account_balance > totalamount :
@@ -211,18 +280,30 @@ def paynow(request, user):
 
             neworder.save()
             msg = "Payment Successful"
-            return render(request, "gheaven/payalert.html", {"msg" : msg, "user" : user.username})
+            return render(request, "gheaven/payalert.html", {"msg" : msg, "user" : user.username, "timer" : timer})
 
         else :
             msg = "Payment Unsuccessful(low balance add from admin)"
-            return render(request, "gheaven/payalert.html", {"msg" : msg, "user" : user.username})
+            return render(request, "gheaven/payalert.html", {"msg" : msg, "user" : user.username, "timer" : timer})
     
 
 
-def account(request, user):
+def account(request, user, timer):
     user1 = User.objects.get(username=user)
+    time = str(timer)
+    time_parts = time.split(":")
+
+    days = int(time_parts[0])
+    hours = int(time_parts[1])
+    minutes = int(time_parts[2])
+    seconds = int(time_parts[3])
+
+    tt = timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds)
+    user1.remaining_time = tt
+    user1.save()
     return render(request,'gheaven/account.html',{
-        "user" : user1
+        "user" : user1,
+        "timer" : timer
     })
 
 def alert(request):
@@ -232,7 +313,19 @@ def payalert(request):
     return render(request, "gheaven/payalert.html")
 
 
+def paymenthistory(request, user):
+    user1 = User.objects.get(username=user)
+    orders = Order.objects.filter(user=user1)
+    return render(request,'gheaven/paymenthistory.html',{
+        "user" : user1,
+        "orders" : orders
+    })
 
+def editdetails(request, user):
+    user1 = User.objects.get(username=user)
+    return render(request,'gheaven/paymenthistory.html',{
+        "user" : user1,
+    })
 
     
     

@@ -62,7 +62,7 @@
                         <div class="col-12 p-5 pt-0 pr-0 pb-0 mt-4 text-white">
                             <h6>BROWSE BY TAG</h6>
                             <ul class="al_list">
-                                <li><a href="{% url 'games' user.username %}" id="all-games-link">All Tags</a></li>
+                                <li><a href="{% url 'games' user.username timer %}" id="all-games-link">All Tags</a></li>
                                 {% for genre in genre  %}
                                     <li><a href="{% url 'tagwisegames' user.username genre.id %}" id="all-games-link">{{genre.name}}</a></li>
                                     {% if genre.name == "Sports" %}
