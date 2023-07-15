@@ -36,50 +36,17 @@ style="backdrop-filter: blur(3rem); background-color: rgba(0, 0, 0, 0.547); bord
                             <th scope="col">Balance</th>
                         </tr>
                     </thead>
+                    {% for user in allusers  %}
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Off</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Occupied</td>
-                            <td>Deadwolf</td>
-                            <td></td>
-                            <td>1h 22m</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Off</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>Occupied</td>
-                            <td></td>
-                            <td>Xenox</td>
-                            <td>2h 03m</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>Occupied</td>
-                            <td></td>
-                            <td>X9tine</td>
-                            <td>1h 45m</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>Off</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                          <th scope="row">{{ user.username }}</th>
+                          <td>{{ user.first_name}} {{ user.last_name }}</td>
+                          <td>{{ user.email }}</td>
+                          <td>{{ user.phone_number }}</td>
+                          <td>{{ user.account_balance }}</td>
                         </tr>
                     </tbody>
+                    {% endfor %}
                 </table>
             </div>
         </div>

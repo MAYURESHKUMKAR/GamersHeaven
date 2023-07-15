@@ -23,13 +23,13 @@
     {% csrf_token %}
         <input type="hidden" name="username" value={{user.username}} required><br>
         <label class="p-2 m-0 mr-1">Time :</label>
-        <input class="p-2 m-0 mr-1" type="text" name="timer"  id="time" style="font-size:1.05rem;" readonly></input>
+        <input class="p-1 m-0 mr-1 text-white" type="text" name="timer"  id="time" style="font-size:1rem; width: 5rem; background-color:transparent; border:none;" readonly></input>
         <button class="btn text-black" type="submit" style="background-color : #04fff7; border-radius:10px;"> logout </button>
     </form>
     
     <script>
         // Get the initial value from the database
-        var initialValue = "{{ user.remaining_time }}";
+        var initialValue = "{{ timer }}";
     
         // Split the initial value into hours, minutes, and seconds
         var timeParts = initialValue.split(":");
@@ -58,8 +58,8 @@
             var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
     
             // Display the countdown timer
-            document.getElementById("time").value = days + ":" + hours + ":" + minutes + ":" + seconds ;
-            document.getElementById("xyz").value = days + ":" + hours + ":" + minutes + ":" + seconds ;
+            document.getElementById("time").value =  hours + ":" + minutes + ":" + seconds ;
+            document.getElementById("xyz").value = hours + ":" + minutes + ":" + seconds ;
     
             // If the countdown is finished, display a message
             if (remainingTime < 0) {

@@ -111,7 +111,7 @@
                             <p style="font-size: 1.125rem;" class="p-1 m-0">Cart</p>
                         </div>
                         <div class="col-12">
-                            <form action="{% url 'payment' user.username %}" method="POST">
+                            <form action="{% url 'payment' user.username timer %}" method="POST">
                                 {% csrf_token %}
                                 <div id="cart-empty-message">
                                     <i class="fa-solid fa-cart-shopping s-icon medium d-flex align-items-end justify-content-center p-4"
@@ -202,10 +202,21 @@
                 totalAmount += cartItems[i].price;
                 totaltime += cartItems[i].tvalue;
             }
+            var hours = totaltime
+            var initialTime = ((hours * 60 * 60)* 1000)
+            var targetDate = new Date().getTime() + initialTime;
+            var now = new Date().getTime();
+            var remainingTime = targetDate - now;
+            
+            var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+            
             var inputElement = document.getElementById("total-amount");
             inputElement.value = totalAmount;
             var inputElement = document.getElementById("total-time");
-            inputElement.value = totaltime;
+            inputElement.value = hours + ":" + minutes + ":" + seconds ;
             $('#total-amount').html('Total: ' + totalAmount.toFixed(2) + '<br>Total: ' + totaltime + ' hours');
         }
 

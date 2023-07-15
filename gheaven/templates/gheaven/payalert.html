@@ -19,10 +19,10 @@
                 <h3>{{ msg }}</h3>
                 <h4>Continue to Gamers Heaven</h4>
                 {% if msg == "Payment Successful" %}
-                    <a href="{% url 'home' user timer %}" class="btn" id="lgn-btn">Enter</a>
+                    <a href="{% url 'home' user.username timer %}" class="btn" id="lgn-btn">Enter</a>
                 {% endif %}
                 {% if msg == "Payment Unsuccessful" %}        
-                    <a href="{% url 'shop' user timer %}" class="btn" id="lgn-btn">Enter Shop</a>
+                    <a href="{% url 'shop' user.username timer %}" class="btn" id="lgn-btn">Enter Shop</a>
                 {% endif %}
             </div>
         </div>

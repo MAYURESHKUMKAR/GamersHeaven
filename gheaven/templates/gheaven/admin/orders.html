@@ -29,50 +29,22 @@ style="backdrop-filter: blur(3rem); background-color: rgba(0, 0, 0, 0.547); bord
                 <table class="table text-white text-center">
                     <thead>
                         <tr>
-                            <th scope="col"><b>Status</b></th>
-                            <th scope="col">User ID</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Payment Date</th>
+                          <th scope="col">Payment ID</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Order ID</th>
                         </tr>
                     </thead>
+                    {% for payment in payments  %}
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>mayu0506</td>
-                            <td>340</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>n3cro</td>
-                            <td>640</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>YellowFlash</td>
-                            <td>500</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>X9tine</td>
-                            <td>430</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>Xenox</td>
-                            <td>450</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>Deadwolf</td>
-                            <td>300</td>
-                            <td></td>
+                          <th scope="row">{{ payment.id }}</th>
+                          <td>{{ payment.amount }}</td>
+                          <td>{{ payment.status }}</td>
+                          <td>{{ payment.order_id }}</td>
                         </tr>
                     </tbody>
+                    {% endfor %}
                 </table>
             </div>
         </div>

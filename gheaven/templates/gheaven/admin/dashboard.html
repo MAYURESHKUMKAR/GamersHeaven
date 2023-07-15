@@ -27,17 +27,17 @@ style="backdrop-filter: blur(3rem); background-color: rgba(0, 0, 0, 0.547); bord
                 <div class="sec-col m-3">
                     <h6 class="m-2 mb-0 ">Today's Income</h6>
                     <h4 class="m-2 "><i class="fa-solid fa-indian-rupee-sign s-icon small"
-                            style="padding-left: 0;"></i>4,500</h4>
+                            style="padding-left: 0;"></i>{{ todaysincome }}</h4>
                 </div>
                 <div class="sec-col m-3">
                     <h6 class="m-2 mb-0 ">PC Available</h6>
-                    <h4 class="m-2 "><i class="fa-solid fa-desktop s-icon small" style="padding-left: 0;"></i>15
+                    <h4 class="m-2 "><i class="fa-solid fa-desktop s-icon small" style="padding-left: 0;"></i>{{ pccount }}
                     </h4>
                 </div>
                 <div class="sec-col m-3">
                     <h6 class="m-2 mb-0 ">Month's Revenue</h6>
                     <h4 class="m-2 "><i class="fa-solid fa-indian-rupee-sign s-icon small"
-                            style="padding-left: 0;"></i>52,000</h4>
+                            style="padding-left: 0;"></i>{{ monthsincome }}</h4>
                 </div>
             </div>
         </div>
@@ -48,50 +48,22 @@ style="backdrop-filter: blur(3rem); background-color: rgba(0, 0, 0, 0.547); bord
                 <table class="table text-white text-center">
                     <thead>
                         <tr>
-                            <th scope="col"><b>PC ID</b></th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Time To Logout</th>
+                          <th scope="col">PC Number</th>
+                          <th scope="col">Availability Status</th>
+                          <th scope="col">Username</th>
+                          <th scope="col">Remaining Timer</th>
                         </tr>
                     </thead>
+                    {% for pc in allpc  %}
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Off</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Occupied</td>
-                            <td>Deadwolf</td>
-                            <td>1h 22m</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Off</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>Occupied</td>
-                            <td>Xenox</td>
-                            <td>2h 03m</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>Occupied</td>
-                            <td>X9tine</td>
-                            <td>1h 45m</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>Off</td>
-                            <td></td>
-                            <td></td>
+                          <th scope="row">{{ pc.pc_number }}</th>
+                          <td>{{ pc.availability_status }}</td>
+                          <td>{{ pc.username }}</td>
+                          <td>{{ pc.remaining_time }}</td>
                         </tr>
                     </tbody>
+                    {% endfor %}
                 </table>
             </div>
         </div>

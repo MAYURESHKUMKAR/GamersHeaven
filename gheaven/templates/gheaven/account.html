@@ -48,8 +48,8 @@
                             <h6>
                                 <ul class="al_list">
                                     <li><a href="{% url 'account' user.username timer %}" id="lnk-acc">General Information</a></li>
-                                    <li><a href="{% url 'paymenthistory' user.username %}" id="lnk-acc">Payment History</a></li>
-                                    <li><a href="#" id="lnk-acc">Edit Account</a></li>
+                                    <li><a href="{% url 'paymenthistory' user.username timer %}" id="lnk-acc">Payment History</a></li>
+                                    <li><a href="{% url 'editaccount' user.username timer %}" id="lnk-acc">Edit Account</a></li>
                                 </ul>
                             </h6>
                         </div>
@@ -101,7 +101,7 @@
                         <h4 class="m-2 mb-0 justify-content-center">Total Time Remaining</h4>
                         <div class="row mt-1">
                             <div class="col-12   justify-content-center">
-                                <i class="fa-solid fa-clock fa-lg m-2">&nbsp {{ user.remaining_time }}</i>
+                                <i class="fa-solid fa-clock fa-lg m-2" id="timer">&nbsp {{ timer }}</i>
                             </div>
                         </div>
                     </div>
@@ -121,4 +121,47 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    // Get the initial value from the database
+    var initialValue = "{{ timer }}";
+ 
+    // Split the initial value into hours, minutes, and seconds
+    var timeParts = initialValue.split(":");
+    var hours = parseInt(timeParts[0]);
+    var minutes = parseInt(timeParts[1]);
+    var seconds = parseInt(timeParts[2]);
+
+      // Convert hours, minutes, and seconds to milliseconds
+      var initialTime = ((hours* 60 * 60) + (minutes * 60) + (seconds)) * 1000;
+      0
+          // Set the target date and time for the countdown
+          var targetDate = new Date().getTime() + initialTime;
+      
+          // Update the countdown every 1 second
+          var countdownInterval = setInterval(function() {
+              // Get the current date and time
+              var now = new Date().getTime();
+      
+              // Calculate the remaining time
+              var remainingTime = targetDate - now;
+      
+              // Calculate days, hours, minutes, and seconds
+              var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+              var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+              var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+         // Display the countdown timer
+         document.getElementById("timer").innerHTML = hours + ":" + minutes + ":" + seconds ;
+
+         // If the countdown is finished, display a message
+         if (remainingTime < 0) {
+             clearInterval(countdownInterval);
+             document.getElementById("timer").innerHTML = "Session has ended!";
+         }
+     }, 1000);
+ </script>
+
 {% endblock %} 

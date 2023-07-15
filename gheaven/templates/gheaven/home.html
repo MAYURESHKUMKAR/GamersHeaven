@@ -63,7 +63,7 @@
             <div class="row sec-col" style="margin: 12px;">
                 <div class="col-6 ">
                     <h6 class="m-2 mb-0 d-flex aign-items-center justify-content-center">Time Remaining</h6>
-                    <h4 class="m-2 d-flex aign-items-center justify-content-center"><div id="timer">{{ user.remaining_time }}</div></h4>
+                    <h4 class="m-2 d-flex aign-items-center justify-content-center"><div id="timer">{{ timer }}</div></h4>
                 </div>
                 <div class="col-6 p-0" style="border-left: 1px solid rgba(255, 255, 255, 0.296);">
                     <div class="row m-0" style="height: 100%;">
@@ -170,7 +170,7 @@
 
     <script>
        // Get the initial value from the database
-       var initialValue = "{{ user.remaining_time }}";
+       var initialValue = "{{ timer }}";
     
        // Split the initial value into hours, minutes, and seconds
        var timeParts = initialValue.split(":");
@@ -199,7 +199,7 @@
                  var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
             // Display the countdown timer
-            document.getElementById("timer").innerHTML = days + ":" +  hours + ":" + minutes + ":" + seconds ;
+            document.getElementById("timer").innerHTML = hours + ":" + minutes + ":" + seconds ;
 
             // If the countdown is finished, display a message
             if (remainingTime < 0) {

@@ -21,6 +21,9 @@ class User(models.Model):
     phone_number = models.CharField(max_length=20)
     remaining_time = models.DurationField(null=True, blank=True)
 
+    def __str__(self):
+        return self.username
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=255)
@@ -51,10 +54,9 @@ class App(models.Model):
 
 class Activity(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    start_time = models.TimeField(blank=True, null=True)
+    end_time = models.TimeField(blank=True, null=True)
     activity_type = models.CharField(max_length=10)
-    duration = models.IntegerField()
 
     
 
@@ -68,7 +70,7 @@ class Order(models.Model):
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     total_time = models.DurationField()
     package_names = models.CharField(max_length=255, blank=True)
-    date_and_time = models.DateTimeField(auto_now=True)
+    date_and_time = models.DateField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     order_type = models.CharField(max_length=20, choices=TYPE_CHOICES)
 
@@ -80,6 +82,8 @@ class Order(models.Model):
 
         if self.order_type == 'package' and not hasattr(self, 'payment'):
             payment = Payment.objects.create(order=self, amount=self.total_amount, status='Success')
+    
+
 
 
 class Payment(models.Model):

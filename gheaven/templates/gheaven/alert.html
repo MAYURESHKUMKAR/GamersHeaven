@@ -18,7 +18,13 @@
                 <i class="fa-regular fa-face-smile" style="font-size: 50px;"></i><br>
                 <h3>{{ msg }}</h3>
                 <h4>Back to Login</h4>
-                <a href="{% url 'login-page' %}" class="btn" id="lgn-btn">Log in</a>
+                {% if msg == "Successful" %}
+                    <a href="{% url 'login-page' %}" class="btn" id="lgn-btn">Log in</a>
+                {% endif %}
+                {% if msg == "Details Update Successful" %}        
+                    <a href="{% url 'editdetails' unm timer %}" class="btn" id="lgn-btn">Continue</a>
+                {% endif %}
+                
             </div>
         </div>
         <div class="col-4 p-0"></div>
